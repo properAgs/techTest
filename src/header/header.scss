@@ -1,0 +1,16 @@
+.header {
+  height: 64px;
+  line-height: 64px;
+  overflow-x: auto;
+  white-space: nowrap;
+  background: linear-gradient(150deg, #53f 15%, #05d5ff 70%, #a6ffcb 94%);
+
+  > .logo, > .link {
+    vertical-align: middle;
+  }
+
+  > .link {
+    color: #d9fcff;
+    margin-left: 16px;
+  }
+}

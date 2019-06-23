@@ -1,7 +1,11 @@
+import './index.scss';
+import './header/header';
+import './footer/footer';
+
 import {Application, loader} from 'pixi.js';
-import {Character} from '@app/character';
 import {Key} from 'ts-keycode-enum';
-import {Utilities} from "@app/Utilities";
+import {Character} from "./app/character";
+import {Utilities} from "./app/Utilities";
 
 class Game {
     private app: Application;
@@ -59,4 +63,4 @@ class Game {
     }
 }
 
-new Game();
+window.onload = () => new Game();
