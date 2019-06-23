@@ -6,45 +6,54 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
-  entry: './src/app.ts',
-  devtool: 'inline-source-map',
-  mode: 'development',
-  devServer: {
-    contentBase: './dist',
-    hot: true,
-    port: 4200
-  },
-  plugins: [
-    new CleanWebpackPlugin(['dist']),
-    new HtmlWebpackPlugin({
-      title: 'Development'
-    }),
-    new CopyWebpackPlugin([{ from: './src/assets', to: 'assets' }]),
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin()
-  ],
-  module: {
-    rules: [
-      {
-        test: /\.tsx?$/,
-        use: 'awesome-typescript-loader'
-      },
-      {
-        test: /\.(png|svg|jpg|gif)$/,
-        use: 'file-loader'
-      }
-    ]
-  },
-  resolve: {
+    entry: './src/app.ts',
+    devtool: 'inline-source-map',
+    mode: 'development',
+    devServer: {
+        contentBase: './docs',
+        hot: true,
+        port: 4200
+    },
     plugins: [
-      new TsconfigPathsPlugin({
-        /*configFile: "./path/to/tsconfig.json" */
-      })
+        new CleanWebpackPlugin(['docs']),
+        new HtmlWebpackPlugin({
+            title: 'Development',
+            template: "./src/index.html",
+            favicon: "./src/favicon.ico",
+            minify: {
+                collapseBooleanAttributes: true,
+                collapseInlineTagWhitespace: true,
+                collapseWhitespace: true,
+                removeComments: true
+            }
+        }),
+
+        new CopyWebpackPlugin([{from: './src/assets', to: 'assets'}]),
+        new webpack.NamedModulesPlugin(),
+        new webpack.HotModuleReplacementPlugin()
     ],
-    extensions: ['.tsx', '.ts', '.js']
-  },
-  output: {
-    filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist')
-  }
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: 'awesome-typescript-loader'
+            },
+            {
+                test: /\.(png|svg|jpg|gif)$/,
+                use: 'file-loader'
+            }
+        ]
+    },
+    resolve: {
+        plugins: [
+            new TsconfigPathsPlugin({
+                /*configFile: "./path/to/tsconfig.json" */
+            })
+        ],
+        extensions: ['.tsx', '.ts', '.js']
+    },
+    output: {
+        filename: '[name].bundle.js',
+        path: path.resolve(__dirname, 'docs')
+    }
 };

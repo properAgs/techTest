@@ -10,7 +10,7 @@
     "npm-reset": "rm -rf node_modules && npm cache verify && npm i",
     "git-reset": "git reset HEAD --hard && git clean -fd && git fetch --all --tags --prune && git pull",
     "start": "webpack-dev-server",
-    "build": "webpack"
+    "build": "webpack --mode production && webpack-dev-server --mode production"
   },
   "dependencies": {
     "pixi.js": "4.7.1",
