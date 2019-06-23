@@ -14,7 +14,7 @@
       "dom"
     ],
     "noImplicitAny": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "noUnusedParameters": true,
     "baseUrl": "./src/",
     "paths": {

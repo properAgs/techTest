@@ -1,44 +1,62 @@
-import { Application, loader } from 'pixi.js';
-import { Character } from '@app/character.class';
+import {Application, loader} from 'pixi.js';
+import {Character} from '@app/character';
+import {Key} from 'ts-keycode-enum';
+import {Utilities} from "@app/Utilities";
+
 class Game {
-  private app: Application;
-  constructor() {
-    // instantiate app
-    this.app = new Application({
-      width: 800,
-      height: 600,
-      backgroundColor: 0x1099bb // light blue
-    });
+    private app: Application;
 
-    // create view in DOM
-    document.body.appendChild(this.app.view);
+    constructor() {
+        // instantiate app
+        this.app = new Application({
+            width: 800,
+            height: 600,
+            backgroundColor: 0x1099bb // light blue
+        });
 
-    // preload needed assets
-    loader.add('samir', '/assets/img/hero.png');
+        // create view in DOM
+        document.body.appendChild(this.app.view);
 
-    // then launch app
-    loader.load(this.setup.bind(this));
-  }
+        // preload needed assets
+        loader.add('samir', '/assets/img/hero.png');
 
-  setup(): void {
-    // append hero
-    const hero = new Character(loader.resources['samir'].texture);
-    const heroSprite = hero.sprite;
-    this.app.stage.addChild(heroSprite);
-    heroSprite.y = 300;
+        // then launch app
+        loader.load(this.setup.bind(this));
+    }
 
-    //  animate hero
-    let moveLeft = true;
-    this.app.ticker.add(() => {
-      const speed = 2;
-      if (heroSprite.x < this.app.view.width && moveLeft) {
-        heroSprite.x += speed;
-      } else {
-        heroSprite.x -= speed;
-        moveLeft = heroSprite.x <= 0;
-      }
-    });
-  }
+    setup(): void {
+        // append hero
+        const hero = new Character(loader.resources['samir'].texture);
+        const heroSprite = hero.sprite;
+        this.app.stage.addChild(heroSprite);
+
+        const width = this.app.view.width;
+        const height = this.app.view.height;
+
+        heroSprite.x = width / 2;
+        heroSprite.y = height / 2;
+        const ticker = this.app.ticker
+        ticker.add(() => {
+            const speed = 5 * ticker.deltaTime;
+            if (Utilities.IsKeyDown((Key.DownArrow))) {
+                heroSprite.y += speed;
+            }
+            if (Utilities.IsKeyDown((Key.UpArrow))) {
+                heroSprite.y -= speed;
+            }
+            if (Utilities.IsKeyDown((Key.RightArrow))) {
+                heroSprite.x += speed;
+            }
+            if (Utilities.IsKeyDown((Key.LeftArrow))) {
+                heroSprite.x -= speed;
+            }
+
+            const xGap = heroSprite.width / 2;
+            const yGap = heroSprite.height / 2;
+            heroSprite.x = Utilities.Clamp(heroSprite.x, xGap, width - xGap);
+            heroSprite.y = Utilities.Clamp(heroSprite.y, yGap, height - yGap);
+        });
+    }
 }
 
 new Game();

@@ -1,8 +1,5 @@
 {
   "name": "pixi-webpack-ts",
-  "version": "5.0.1",
-  "license": "CC-BY-NC-4.0",
-  "author": "Loïc TRUCHOT <loic.truchot.pro@gmail.com>",
   "description": "A pre installed environnement to work with pixi.js with webpack & typescript",
   "engines": {
     "node": "~8.11.0",
@@ -15,16 +12,10 @@
     "start": "webpack-dev-server",
     "build": "webpack"
   },
-  "keywords": [
-    "pixijs",
-    "playground",
-    "basic",
-    "webpack",
-    "typescript",
-    "seed"
-  ],
   "dependencies": {
-    "pixi.js": "4.7.1"
+    "pixi.js": "4.7.1",
+    "sass": "^1.21.0",
+    "ts-keycode-enum": "^1.0.6"
   },
   "devDependencies": {
     "@types/node": "9.6.0",
